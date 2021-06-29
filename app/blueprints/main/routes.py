@@ -1,5 +1,5 @@
 from .import bp as main
-from flask import jsonify, request
+from flask import jsonify, request, json
 import requests
 from app.data import data
 from app.result import conference_data
@@ -10,7 +10,8 @@ def index():
 
 @main.route('/', methods=['POST'])
 def result():
-    if request.json['data'] == conference_data:
+    print('Success')
+    if json.dumps(conference_data) == request.json['data']:
         return jsonify({'message': 'Success'}), 200
     else:
         print("Oops! Somewhere along the way, you made a mistake :-(. Please try again!")
