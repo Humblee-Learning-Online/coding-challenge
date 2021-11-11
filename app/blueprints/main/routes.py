@@ -10,10 +10,25 @@ def index():
 
 @main.route('/', methods=['POST'])
 def result():
-    print('Success')
-    if json.dumps(conference_data) == request.json['data']:
-        return jsonify({'message': 'Success'}), 200
-    else:
+    # print(request.json.get('data'))
+    # print(request.get('data'))
+    # print(request.get('json'))
+    # print(request.get('json')
+    try:
+        # if json.dumps(conference_data) == request.json['data']:
+        if conference_data == list(request.json.values())[0]:
+            print('Success')
+            return jsonify({'message': 'Success'}), 200
+    except Exception as error:
+        print()
+        print("="*120)
         print("Oops! Somewhere along the way, you made a mistake :-(. Please try again!")
         print("Suggestion: Try using object-oriented programming to build your solution instead. It may be a little easier to digest. ")
-        return jsonify({'error': 'That is not correct. Try again!'}), 500
+        print("="*120)
+
+        print()
+        print("="*120)
+        print(error)
+        print("="*120)
+        print()
+        return jsonify({'error': f'{error}'}), 400
